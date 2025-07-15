@@ -5,7 +5,7 @@
             <td>ID</td>
             <td>Title</td>
             <td>Description</td>
-            <td>Owner Id</td>
+            <td>Owner Email</td>
             <td>Status</td>
             <td>Created At</td>
         </tr>
@@ -16,6 +16,7 @@
                 <td>{{ job.id }}</td>
                 <td>{{ job.title }}</td>
                 <td>{{ job.description }}</td>
+                <td>{{ job.owner.email }}</td>
                 <td>{{ job.status }}</td>
                 <td>{{ job.createdAt|date }}</td>
             </tr>

@@ -4,7 +4,7 @@ namespace App\Service;
 
 use Psr\Log\LoggerInterface;
 
-class MailerService
+class NotificationService
 {
     private LoggerInterface $logger;
 

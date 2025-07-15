@@ -20,27 +20,9 @@ class UserRepository extends ServiceEntityRepository
         $this->entityManager = $entityManager;
     }
 
-    public function create()
+    public function create(): bool
     {
-        // create moderator
-        $moderator = new User();
-        $moderator->setEmail('csd.militante@gmail.com');
-        $moderator->setFirstName('Stacy');
-        $moderator->setLastName('Militante');
-        $moderator->setIsModerator(true);
-
-        $this->entityManager->persist($moderator);
-        $this->entityManager->flush();
-
-        for ($i = 1; $i <= 10; $i++) {
-            $user = new User();
-            $user->setEmail('csd.militante+user' . $i . '@gmail.com');
-            $user->setFirstName('Stacy - User - ' . $i);
-            $user->setLastName('Militante');
-
-            $this->entityManager->persist($user);
-            $this->entityManager->flush();
-        }
+        return true;
     }
 
     //    /**

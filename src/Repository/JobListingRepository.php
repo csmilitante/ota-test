@@ -20,20 +20,9 @@ class JobListingRepository extends ServiceEntityRepository
         $this->entityManager = $entityManager;
     }
 
-    public function create(): JobListing
+    public function create(): bool
     {
-        $ownerId = rand(1, 10);
-        $titleCounter = rand(1, 300);
-
-        $jobListing = new JobListing();
-        $jobListing->setTitle('Job Listing '. $titleCounter);
-        $jobListing->setDescription('Job Listing ' . $titleCounter . ' Description');
-        $jobListing->setStatus('pending');
-
-        $this->entityManager->persist($jobListing);
-        $this->entityManager->flush();
-
-        return $jobListing;
+        return true;
     }
 
     //    /**
