@@ -24,9 +24,6 @@ class JobListing
     private ?string $status = null;
 
     #[ORM\Column]
-    private ?int $ownerId = null;
-
-    #[ORM\Column]
     private \DateTimeImmutable $createdAt;
 
     #[ORM\Column]
@@ -75,18 +72,6 @@ class JobListing
     public function setStatus(string $status): static
     {
         $this->status = $status;
-
-        return $this;
-    }
-
-    public function getOwnerId(): ?int
-    {
-        return $this->ownerId;
-    }
-
-    public function setOwnerId(int $ownerId): static
-    {
-        $this->ownerId = $ownerId;
 
         return $this;
     }

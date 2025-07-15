@@ -29,7 +29,6 @@ class JobListingRepository extends ServiceEntityRepository
         $jobListing->setTitle('Job Listing '. $titleCounter);
         $jobListing->setDescription('Job Listing ' . $titleCounter . ' Description');
         $jobListing->setStatus('pending');
-        $jobListing->setOwnerId($ownerId);
 
         $this->entityManager->persist($jobListing);
         $this->entityManager->flush();
