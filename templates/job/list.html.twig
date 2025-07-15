@@ -1,0 +1,26 @@
+<div>
+    <table border="1">
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>Title</td>
+            <td>Description</td>
+            <td>Owner Id</td>
+            <td>Status</td>
+            <td>Created At</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for job in jobListings %}
+            <tr>
+                <td>{{ job.id }}</td>
+                <td>{{ job.title }}</td>
+                <td>{{ job.description }}</td>
+                <td>{{ job.ownerId }}</td>
+                <td>{{ job.status }}</td>
+                <td>{{ job.createdAt|date }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
