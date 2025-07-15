@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -26,9 +28,16 @@ class User
     #[ORM\Column]
     private ?bool $isModerator = null;
 
+    /**
+     * @var Collection<int, JobListing>
+     */
+    #[ORM\OneToMany(targetEntity: JobListing::class, mappedBy: 'owner')]
+    private Collection $jobListings;
+
     public function __construct()
     {
         $this->isModerator = false;
+        $this->jobListings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -80,6 +89,36 @@ class User
     public function setIsModerator(bool $isModerator): static
     {
         $this->isModerator = $isModerator;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, JobListing>
+     */
+    public function getJobListings(): Collection
+    {
+        return $this->jobListings;
+    }
+
+    public function addJobListing(JobListing $jobListing): static
+    {
+        if (!$this->jobListings->contains($jobListing)) {
+            $this->jobListings->add($jobListing);
+            $jobListing->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJobListing(JobListing $jobListing): static
+    {
+        if ($this->jobListings->removeElement($jobListing)) {
+            // set the owning side to null (unless already changed)
+            if ($jobListing->getOwner() === $this) {
+                $jobListing->setOwner(null);
+            }
+        }
 
         return $this;
     }
