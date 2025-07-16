@@ -1,7 +1,8 @@
 <div>
     <h1>Job listing created</h1>
     <h2>ID: {{ id }}</h2>
-    <h2>Owner ID: {{ ownerId }}</h2>
+    <h2>Owner ID: {{ owner.id }}</h2>
+    <h2>Owner email: {{ owner.email }}</h2>
     <h2>Title: {{ title }}</h2>
     <h2>Description: {{ description }}</h2>
     <h2>Created at: {{ createdAt|date }}</h2>

@@ -1,0 +1,15 @@
+<h1>New Job listing: {{ jobListing.title }}!</h1>
+
+<p>
+    Created by: {{ jobListing.owner.email }}
+</p>
+<p>
+    Description: {{ jobListing.description }}
+</p>
+
+<p>
+    <a href={{ url('job_status_set_approve', { id: jobListing.id }) }}>Approve</a>
+</p>
+<p>
+    <a href={{ url('job_status_set_spam', { id: jobListing.id }) }}>Mark as Spam</a>
+</p>

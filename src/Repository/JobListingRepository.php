@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\JobListing;
+use App\Service\NotificationService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -13,16 +14,49 @@ use Doctrine\Persistence\ManagerRegistry;
 class JobListingRepository extends ServiceEntityRepository
 {
     private EntityManagerInterface $entityManager;
+    private UserRepository $userRepository;
 
-    public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager)
-    {
+    public function __construct(
+        ManagerRegistry $registry,
+        EntityManagerInterface $entityManager,
+        UserRepository $userRepository
+    ) {
         parent::__construct($registry, JobListing::class);
         $this->entityManager = $entityManager;
+        $this->userRepository = $userRepository;
     }
 
-    public function create(): bool
+    public function create(array $data): JobListing
     {
-        return true;
+        $user = $this->userRepository->find($data['ownerId']);
+
+        $jobListing = new JobListing();
+        $jobListing->setTitle($data['title']);
+        $jobListing->setDescription($data['description']);
+        $jobListing->setStatus($data['status']);
+        $jobListing->setOwner($user);
+
+        $this->entityManager->persist($jobListing);
+        $this->entityManager->flush();
+
+        return $jobListing;
+    }
+
+    public function updateStatus(int $id, $status = 'pending'): array
+    {
+        $jobListing = $this->find($id);
+        $jobListing->setStatus($status);
+
+        $this->entityManager->persist($jobListing);
+        $this->entityManager->flush();
+
+        return [
+            'id' => $jobListing->getId(),
+            'status' => $jobListing->getStatus(),
+            'description' => $jobListing->getDescription(),
+            'ownerId' => $jobListing->getOwner()->getId(),
+            'title' => $jobListing->getTitle(),
+        ];
     }
 
     //    /**

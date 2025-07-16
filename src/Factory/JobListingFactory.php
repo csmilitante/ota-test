@@ -45,7 +45,7 @@ final class JobListingFactory extends PersistentProxyObjectFactory
             'createdAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
             'owner' => UserFactory::random(),
             'status' => 'pending',
-            'title' => self::faker()->title,
+            'title' => self::faker()->text(25),
             'description' => self::faker()->realText(255),
             'updatedAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
         ];

@@ -19,6 +19,10 @@ class AppFixtures extends Fixture
             ->isModerator()
             ->create();
 
+        UserFactory::new()
+            ->isModerator()
+            ->create();
+
         JobListingFactory::createMany(20, function () {
             return [
                 'owner' => UserFactory::random([
