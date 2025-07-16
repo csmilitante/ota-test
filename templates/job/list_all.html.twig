@@ -2,8 +2,8 @@
 
 {% block body %}
 <div>
-    <h1>External Job Listings</h1>
-    <table border="1">
+    <h1 class="text-4xl">External Job Listings</h1>
+    <table class="table-fixed">
         <thead>
         <tr>
             <td>Job ID</td>
@@ -16,7 +16,7 @@
             <tr>
                 <td>{{ listing.id }}</td>
                 <td>
-                    <a href="https://mrge-group-gmbh.jobs.personio.de/job/{{ listing.id }}" target="_blank">
+                    <a class="text-blue-600" href="https://mrge-group-gmbh.jobs.personio.de/job/{{ listing.id }}" target="_blank">
                         {{ listing.name }}
                     </a>
                 </td>
@@ -33,8 +33,8 @@
 </div>
 
 <div>
-    <h1>Internal Job Listings</h1>
-    <table border="1">
+    <h1 class="text-4xl">Internal Job Listings</h1>
+    <table>
         <thead>
         <tr>
             <td>Job ID</td>
