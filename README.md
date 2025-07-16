@@ -20,7 +20,23 @@ with [FrankenPHP](https://frankenphp.dev) and [Caddy](https://caddyserver.com/) 
 3. Once inside the container run `./bin/console doctrine:fixtures:load`
 4. Check email capture url in the Mailpit URL
 
-##  Endpoints
+##  Endpoints and routes
+
+------------------------- ---------- -------- ------ ---------------------------------
+    Name                     Method     Scheme   Host   Path
+------------------------ ---------- -------- ------ ---------------------------------
+    _preview_error           ANY        ANY      ANY    /_error/{code}.{_format}
+    job_create               POST       ANY      ANY    /job/create
+    job_listing_list         ANY        ANY      ANY    /job/list/internal
+    job_external_list        ANY        ANY      ANY    /job/list/external
+    job_all_list             ANY        ANY      ANY    /job/list/all
+    job_status_set_pending   GET|POST   ANY      ANY    /job/status/update/pending/{id}
+    job_status_set_approve   GET|POST   ANY      ANY    /job/status/update/approve/{id}
+    job_status_set_spam      GET|POST   ANY      ANY    /job/status/update/spam/{id}
+    homepage                 ANY        ANY      ANY    /
+    user_create              ANY        ANY      ANY    /user/create
+    user_list                ANY        ANY      ANY    /user/list
+------------------------ ---------- -------- ------ ---------------------------------
 
 ### Mailpit URL
 `http://localhost:54501/`
