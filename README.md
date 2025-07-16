@@ -13,6 +13,85 @@ with [FrankenPHP](https://frankenphp.dev) and [Caddy](https://caddyserver.com/) 
 4. Open `https://localhost` in your favorite web browser and [accept the auto-generated TLS certificate](https://stackoverflow.com/a/15076602/1352334)
 5. Run `docker compose down --remove-orphans` to stop the Docker containers.
 
+## Assignment specific
+
+1. Double check `DATABASE_URL` and `MAILER_DSN` in the `.env` to see if it is working 
+2. Run Fixtures to create fake data. On your terminal run `docker-compose exec -it php bash`
+3. Once inside the container run `./bin/console doctrine:fixtures:load`
+4. Check email capture url in the Mailpit URL
+
+##  Endpoints
+
+### Mailpit URL
+`http://localhost:54501/`
+
+### Create a job listing
+<details>
+
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'http://localhost/job/create',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS =>'{
+	"title": "[JOB TITLE]",
+    "description": "[JOB DESCRIPTION]",
+    "status": "[pending|spam|approved]",
+    "ownerId": [OWNER ID]
+}',
+  CURLOPT_HTTPHEADER => array(
+    'Content-Type: application/json'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+```
+
+</details>
+
+### Changing Status of Job
+<details>
+
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'http://localhost/job/status/update/[pending|approve|spam]/[JOB ID]',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+  CURLOPT_HTTPHEADER => array(
+    'Content-Type: application/json'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+
+```
+
+</details>
+
 ## Features
 
 * Production, development and CI ready
