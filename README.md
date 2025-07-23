@@ -9,16 +9,17 @@ with [FrankenPHP](https://frankenphp.dev) and [Caddy](https://caddyserver.com/) 
 
 1. If not already done, [install Docker Compose](https://docs.docker.com/compose/install/) (v2.10+)
 2. Run `docker compose build --pull --no-cache` to build fresh images
-3. Run `docker compose up --wait` to set up and start a fresh Symfony project
-4. Open `https://localhost` in your favorite web browser and [accept the auto-generated TLS certificate](https://stackoverflow.com/a/15076602/1352334)
+3. Run `SERVER_NAME=:80 HTTP_PORT=8081 docker compose up --wait` to set up and start a fresh Symfony project (Change the HTTP_PORT to where you want to map it in the host)
+4. Open `https://localhost:[HTTP_PORT]` in your favorite web browser and [accept the auto-generated TLS certificate](https://stackoverflow.com/a/15076602/1352334)
 5. Run `docker compose down --remove-orphans` to stop the Docker containers.
 
 ## Assignment specific
 
-1. Double check `DATABASE_URL` and `MAILER_DSN` in the `.env` to see if it is working 
+1. Double check `DATABASE_URL` and `MAILER_DSN` in the `.env` to see if it is working
 2. Run Fixtures to create fake data. On your terminal run `docker-compose exec -it php bash`
 3. Once inside the container run `./bin/console doctrine:fixtures:load`
-4. Check email capture url in the Mailpit URL
+4. Inside the container execute `./bin/console tailwind:build`
+5. Check email capture url in the Mailpit URL
 
 ##  Endpoints and routes
 
